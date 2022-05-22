@@ -1,6 +1,5 @@
 function init() {
     var selector = d3.select("#selDataset");
-  
     d3.json("samples.json").then((data) => {
       console.log(data);
       var sampleNames = data.names;
@@ -20,10 +19,12 @@ function init() {
       buildCharts(newSample);
   }
 
-  function buldMetadata(sample) {
+  function buildMetadata(sample) {
       d3.json("samples.json").then((data) => {
+          console.log(data);
           var metadata = data.metadata;
-          var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
+          var resultArray = metadata.filter(sampleObj => sampleObj.id == sample,
+            sampleObj.ethnicity == sample);
           var result = resultArray[0];
           var PANEL = d3.select("#sample-metadata");
 
@@ -31,4 +32,4 @@ function init() {
           PANEL.append("h6").text(result.location);
       });
   }
-  
+
